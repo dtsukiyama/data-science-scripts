@@ -58,7 +58,7 @@ class classify_jobs(luigi.Task):
         print "done"
         
         print "test classifier..."
-        unseen_document = 'Water Heater Factory Recall quick swap'
+        unseen_document = 'example document'
         tm.classify(word_count_dict, sample_model, unseen_document)
         print "done"
         
@@ -83,15 +83,15 @@ class cluster_companies(luigi.Task):
     def run(self):
     
         def process_data(data):
-            data.loc[data['work_price']==0, 'work_price']=0.1
-            data['work_price'] = np.log(data['work_price'])
+            data.loc[data['price']==0, 'price']=0.1
+            data['price'] = np.log(data['price'])
             le = preprocessing.LabelEncoder()
             data[['industry_id','state','topic']] = data[['industry_id','state','topic']].apply(le.fit_transform)
             return data
             
         data = pd.read_csv(self.input().fn)
         data = process_data(data)
-        X = data[['industry_id','work_price','state','topic']].values
+        X = data[['industry_id','price','state','topic']].values
         num_cluster = 4
         print "clustering data..."
         km = KMeans(n_clusters = num_cluster)
