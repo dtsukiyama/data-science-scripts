@@ -6,7 +6,6 @@ import luigi
 import yaml
 import pandas.io.sql as sql
 import pandas as pd
-import scipy.stats as st
 import numpy as np
 import pymysql
 import pyprind
