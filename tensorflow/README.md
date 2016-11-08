@@ -2,7 +2,7 @@
 
 Original instructions can be found [here](http://www.nvidia.com/object/gpu-accelerated-applications-tensorflow-installation.html). 
 
-The instructions at NVIDIA did not work for me, several modifications were made in order for me to install Tensorflow: I removed the hard reset when installing Tensorflow:
+The instructions at NVIDIA did not work for me, a couple of modifications were made in order for me to install Tensorflow: I removed the hard reset when installing Tensorflow:
 
 ```
 $ git reset --hard 70de76e
