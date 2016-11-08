@@ -1,4 +1,4 @@
-"" data: mnist = input_data.read_data_sets("MNIST_data/", one_hot=True) """
+""" data: mnist = input_data.read_data_sets("MNIST_data/", one_hot=True) """
 
 
 class softmax(object):
