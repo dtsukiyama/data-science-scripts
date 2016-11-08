@@ -14,7 +14,7 @@ Please note that each additional compute capability significantly increases your
 [Default is: "3.5,5.2"]: 5.2,6.1 [see https://developer.nvidia.com/cuda-gpus] 
 ```
 
-Step 1. Intall NVIDIA CUDA
+Step 1. Intall NVIDIA CUDA [see documentation here](https://github.com/dtsukiyama/data-science-scripts/blob/master/tensorflow/CUDA.md)
 
 Step 2. Install NVIDIA cuDNN
 
