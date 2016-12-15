@@ -10,7 +10,7 @@ import numpy as np
 import pymysql
 import pyprind
 import json
-from topic_model import t_model
+from lda import t_model
 from sklearn.cluster import KMeans
 from sklearn import preprocessing
 
