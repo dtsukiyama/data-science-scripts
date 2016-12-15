@@ -1,0 +1,1 @@
+{"filter": {"bigram_filter": {"min_shingle_size": 2, "output_unigrams": "false", "type": "shingle", "max_shingle_size": 2}}, "analyzer": {"default": {"type": "english"}, "english_bigrams": {"filter": ["standard", "lowercase", "porter_stem", "bigram_filter"], "type": "custom", "tokenizer": "standard"}}}

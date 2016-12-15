@@ -1,0 +1,235 @@
+{% if results %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+ul2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul3 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+li {
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
+}
+
+li2 {
+    margin: 0;
+    padding: 0.2em;
+    margin-left: 125px;
+}
+
+li3 {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+
+
+
+p {
+    margin-left: 125px;
+    margin-right: 50px;
+}
+
+
+/* div container containing the form  */
+#searchContainer {
+	margin:0px;
+}
+
+/* Style the search input field. */
+#field {
+	float:left; 
+	width:500px; 
+	height:31px; 
+	line-height:27px;
+	text-indent:10px; 
+	font-family:Arial; 
+	font-style: normal;
+	font-size:1em; 
+	color:#333; 
+	background: #fff; 
+	border:solid 1px #d9d9d9; 
+	border-top:solid 1px #c0c0c0; 
+	border-right:none;
+}
+
+
+/* Syle the search button. Settings of line-height, font-size, text-indent used to hide submit value in IE */
+#submit {
+	cursor:pointer; 
+	width:50px; 
+	height: 35px; 
+	line-height:0; 
+	font-size:0; 
+	text-indent:-999px;
+	color: transparent;  
+	background: url('/static/search_icon.png')no-repeat #4d90fe center; 
+	border: 1px solid #3079ED; 
+	-moz-border-radius: 1px; 
+	-webkit-border-radius: 1px; 
+}
+/* Style the search button hover state */
+#submit:hover {
+	background: url('/static/search_icon.png') no-repeat center #357AE8; 
+	border: 1px solid #3079ED;
+}
+
+h3 { 
+    font-size: 1.2em;
+    font-family:Arial; 
+    font-style: normal;
+    color: #666;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 125px;
+    margin-right: 0;
+}
+
+h4 { 
+    font-size: 0.8em;
+    font-family:Arial; 
+    font-style: normal;
+    color: #666;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 125px;
+    margin-right: 0;
+}
+
+h5 { 
+    font-size: 0.8em;
+    font-family:Arial; 
+    font-style: normal;
+    color: #666;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+a {
+    color: #1122CC;
+}
+/* Clear floats */
+.fclear {clear:both}
+
+
+</style>
+</head>
+
+
+<ul>
+  <li> <img src="/static/pokeball.png" style="PADDING-TOP: 4px" height="42" width="42"> </li>
+  <li><a class="active">  
+   <div id="searchContainer">
+   <form action="." method="POST">
+        <input id = "field" name="pokemon" type="text">
+        <input id="submit" name="field" type="submit" value="Search" />
+    </form>
+   </div></a>
+  </li>
+
+  <li>	
+</ul>
+
+<header>
+
+  <h4>{{ results.hits.total }} results ({{results.took}}ms)</h4>
+
+</header>
+
+<body>
+{% for doc in pokemon %}
+
+<section>
+    <ul2> 
+     <li2>
+        <img src={{doc._source.url}} >
+        <div> <p> <a href="{{doc._source.Name}}"> <h3> {{doc._source.Name}} </h3> </a> </p> </div>
+        <div> <p>Relavance Score: {{doc._score}}</p> </div>
+        <div> <p style="color:#006621"> Description: {{doc._source.Description}} </p> </div>
+        <div> <p>Attack Power: {{doc._source.base_attack}}</p> </div>
+        <div> <p>Defense: {{doc._source.defense}}</p> </div>
+        <div> <p>Stamina: {{doc._source.stamina}}</p> </div>
+        <div> <p>Max CP: {{doc._source.max_cp}}</p> </div>
+		<div> <p>Weaknesses: {{doc._source.weaknesses}}</p> </div>
+		<div> <p>Capture Rate: {{doc._source.capture_rate}}</p> </div>
+		<div> <p>Flee Rate: {{doc._source.flee_rate}}</p> </div>
+		<div> <p>Types: {{doc._source.Types}}</p> </div>
+        
+       {% if moves %}
+        {% for doc in moves %}
+        <div> <p>Move: {{doc._source.Move}}</p> </div>
+        <div> <p>Power: {{doc._source.Power}}</p> </div>
+        <div> <p>Move Type: {{doc._source.move_type}}</p> </div>
+        <div> <p>Damage Per Second: {{doc._source.damage_per_second}}</p> </div>
+        <div> <p>Energy Used: {{doc._source.energy_delta}}</p> </div>
+        {% endfor %}
+       {% endif %}
+       
+       
+    </li2>
+   </ul2> 
+</section> 
+
+</body>
+{% endfor %}
+{% endif %}
+
+
+{% if cards %}
+ {% for doc in cards %}
+
+<ul3>
+       <li3> <p><img src={{doc._source.imageUrl}}></p> </li3>
+</ul3>
+
+ {% endfor %}
+{% endif %}
+</html>
+
+
