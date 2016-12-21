@@ -15,7 +15,7 @@ class pokemonCards(luigi.Task):
     date = luigi.DateParameter(default=date.today())
 
     def output(self):
-        return luigi.LocalTarget('data/' + 'all_cards_{}.json'.format(self.date))
+        return luigi.LocalTarget('data/' + 'all_cards_{}.csv'.format(self.date))
 
 
     def run(self):
@@ -36,14 +36,14 @@ class pokemonCards(luigi.Task):
             all_cards = all_cards + cards 
             print 'Processing ' + str(i) + '...'
         
-        with self.output().open('w') as outfile:
-            json.dump(all_cards, outfile)
+        data = pd.DataFrame([[b['imageUrl'],b['name']] for b in all_cards]).rename(columns={0:'url',1:'name'})
+        data['id'] = data.index
+        data.to_csv(self.output().fn, sep=',', index=False, encoding='utf-8')
       
 
 class indexDocuments(luigi.Task):
 
-    today = date.today()
-    date = luigi.DateParameter(default=today)
+    date = luigi.DateParameter(default=date.today())
     
     def requires(self):
         return pokemonCards(self.date)
@@ -51,18 +51,19 @@ class indexDocuments(luigi.Task):
     def run(self):
   
         print "getting cards..."
-        with open(self.input().fn) as data_file:
-            data = json.load(data_file)
+        data = pd.read_csv(self.input().fn)
+        data = json.loads(data.reset_index().reset_index(drop=True).to_json(orient='index'))
+        #data = json.loads(data.to_json(orient='index'))
         print "done"
 
         with open('analysis_settings.json') as data_file:    
-            analysis_settings = json.load(data_file)
+            analysisSettings = json.load(data_file)
         
         with open('mapping_settings.json') as data_file:    
-            mapping_settings = json.load(data_file)
+            mappingSettings = json.load(data_file)
             
         print "indexing documents..."
-        i.reindex(analysis_settings = analysis_settings, mapping_settings = mapping_settings, Dict=data,
+        i.reindex(analysisSettings = analysisSettings, mappingSettings = mappingSettings, Dict=data,
                   index_name = "pokemon_cards", doc_type = "card", identifier = "index")
 
                 
