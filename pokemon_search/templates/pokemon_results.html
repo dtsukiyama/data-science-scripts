@@ -183,51 +183,18 @@ a {
 </header>
 
 <body>
-{% for doc in pokemon %}
+{% for doc in results['hits']['hits'] %}
 
 <section>
     <ul2> 
      <li2>
         <img src={{doc._source.url}} >
-        <div> <p> <a href="{{doc._source.Name}}"> <h3> {{doc._source.Name}} </h3> </a> </p> </div>
-        <div> <p>Relavance Score: {{doc._score}}</p> </div>
-        <div> <p style="color:#006621"> Description: {{doc._source.Description}} </p> </div>
-        <div> <p>Attack Power: {{doc._source.base_attack}}</p> </div>
-        <div> <p>Defense: {{doc._source.defense}}</p> </div>
-        <div> <p>Stamina: {{doc._source.stamina}}</p> </div>
-        <div> <p>Max CP: {{doc._source.max_cp}}</p> </div>
-		<div> <p>Weaknesses: {{doc._source.weaknesses}}</p> </div>
-		<div> <p>Capture Rate: {{doc._source.capture_rate}}</p> </div>
-		<div> <p>Flee Rate: {{doc._source.flee_rate}}</p> </div>
-		<div> <p>Types: {{doc._source.Types}}</p> </div>
-        
-       {% if moves %}
-        {% for doc in moves %}
-        <div> <p>Move: {{doc._source.Move}}</p> </div>
-        <div> <p>Power: {{doc._source.Power}}</p> </div>
-        <div> <p>Move Type: {{doc._source.move_type}}</p> </div>
-        <div> <p>Damage Per Second: {{doc._source.damage_per_second}}</p> </div>
-        <div> <p>Energy Used: {{doc._source.energy_delta}}</p> </div>
-        {% endfor %}
-       {% endif %}
-       
-       
+     
     </li2>
    </ul2> 
 </section> 
 
 </body>
-{% endfor %}
-{% endif %}
-
-
-{% if cards %}
- {% for doc in cards %}
-
-<ul3>
-       <li3> <p><img src={{doc._source.imageUrl}}></p> </li3>
-</ul3>
-
  {% endfor %}
 {% endif %}
 </html>
