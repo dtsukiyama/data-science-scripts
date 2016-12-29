@@ -1,6 +1,23 @@
 import requests
 import yaml
 
+"""
+example usage: getting basic look, user, and role data
+
+looker = LookerApi(host=cfg['host'],token=cfg['token'],secret = cfg['secret'])
+looks = looker.get_all_looks()
+
+example usage: querying Looker model/view
+
+query = {"model":"job_definitions",
+         "view":"job_definition",
+         "fields":["job_definition.term","job_definition.definition"],
+         "limit":"1000"
+         }
+
+result = pd.DataFrame(looker.run_query(query))
+"""
+
 cfg = yaml.load(open('looker_api.yaml', 'r'))['looker']
 
 class LookerApi(object):
@@ -73,7 +90,24 @@ class LookerApi(object):
         print r
         if r.status_code == requests.codes.ok:
             return r.json()
-            
-# example usage: getting basic look, user, and role data
-looker = LookerApi(host=cfg['host'],token=cfg['token'],secret = cfg['secret'])
-looks = looker.get_all_looks()
+      
+    def get_csv(self,look_id):
+        url = '{}{}/{}/run/csv'.format(self.host,'looks',look_id)
+        print url
+        params = {}
+        r = self.session.get(url,params=params)
+        print r
+        if r.status_code == requests.codes.ok:
+            return r.text
+    
+    def run_query(self, query):
+        url = '{}{}/run/json'.format(self.host, 'queries')
+        query = query
+        headers = {'content-type': 'application/json'}
+        print url
+        params = {}
+        r = self.session.post(url, data=json.dumps(query), headers=headers, params=params)
+        print r
+        if r.status_code == requests.codes.ok:
+            return r.json()      
+
