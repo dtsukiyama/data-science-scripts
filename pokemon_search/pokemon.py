@@ -31,15 +31,12 @@ def card_results():
     results = es.search(index=["pokemon_cards"],
                 body={'query': {'multi_match': { 'query': query, 
                                                  'fuzziness': 'AUTO',
-                                                 'fields': ['Name','name','Types','pokemon','evolution_pips']
+                                                 'fields': ['name']
                                                 }
                                 },
-                                'size': 50
+                                'size': 100
                            })
-    moves = [b for b in results['hits']['hits'] if b['_index'] == 'moves']
-    pokemon = [b for b in results['hits']['hits'] if b['_index'] == 'go']
-    cards = [b for b in results['hits']['hits'] if b['_index'] == 'pokemon_cards']
-    return render_template('pokemon_results.html', results=results, moves = moves, pokemon = pokemon, cards = cards)
+    return render_template('pokemon_results.html', results = results)
     
 if __name__ == '__main__':
     app.run(debug=True)
