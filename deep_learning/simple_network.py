@@ -44,5 +44,5 @@ hidden_unit_error = weights_hidden_output * error * hidden_layer_output * (targe
 W = learnrate * error * hidden_layer_output
 
 # calculate input to hidden weights
-
+# answers should be 0.00015228, 0.00045683
 learnrate * hidden_unit_error * x[:, None]
