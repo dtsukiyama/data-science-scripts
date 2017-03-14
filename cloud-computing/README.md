@@ -62,6 +62,12 @@ chmod +x bazel-0.4.4-installer-linux-x86_64.sh
 ./bazel-0.4.4-installer-linux-x86_64.sh --user
 ```
 
+After installing Bazel, you should exit your instance then log in again to make sure Bazel has been properly installed
+
+```
+bazel version
+```
+
 Install CUDA:
 
 ```
@@ -186,15 +192,17 @@ nano jupyter_notebook_config.py
 
 In the Jupyer configuration file add:
 
+```
 c = get_config()
 c.IPKernelApp.pylab = 'inline' 
 c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem' 
 c.NotebookApp.ip = '*' 
 c.NotebookApp.open_browser = False 
 
-####Relace the password with your password 
+#Relace the password with your password 
 c.NotebookApp.password = u'sha1:941c93244463:0a28b4a9a472da0dc28e79351660964ab81605ae' 
 c.NotebookApp.port = 8080
+```
 
 ## Create Jupyter Environment
 
