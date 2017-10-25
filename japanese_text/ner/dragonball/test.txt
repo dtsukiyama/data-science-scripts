@@ -1,5 +1,0 @@
-foo bar \
-bash →
-baz
-dude →
-happy
